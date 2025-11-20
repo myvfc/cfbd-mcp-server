@@ -4,9 +4,8 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "node cfbd-stats-stable.js",
+    "startCommand": "node server.js",
     "healthcheckPath": "/health",
-    "healthcheckTimeout": 300,
-    "restartPolicyType": "NEVER"
+    "healthcheckTimeout": 300
   }
 }
