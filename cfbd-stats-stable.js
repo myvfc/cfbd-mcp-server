@@ -17,7 +17,11 @@ app.use((req, res, next) => {
 
 // Health check
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', uptime: process.uptime() });
+  res.status(200).json({ 
+    status: 'healthy',
+    uptime: Math.floor(process.uptime()),
+    timestamp: new Date().toISOString()
+  });
 });
 
 // Root
@@ -27,14 +31,18 @@ app.get('/', (req, res) => {
 
 // MCP endpoint - handle both GET and POST
 app.all('/mcp', async (req, res) => {
-  console.log(`\n🟢 MCP ${req.method} REQUEST`);
+  const timestamp = new Date().toISOString();
+  console.log(`\n🟢 [${timestamp}] MCP ${req.method} REQUEST`);
+  console.log(`   Headers:`, JSON.stringify(req.headers, null, 2));
   
   // Handle GET (for connection check)
   if (req.method === 'GET') {
-    console.log('GET request - returning 200 OK');
-    return res.json({ 
+    console.log('   → GET request - returning 200 OK');
+    return res.status(200).json({ 
       service: 'MCP Server',
-      methods: ['initialize', 'tools/list', 'tools/call']
+      status: 'ready',
+      methods: ['initialize', 'tools/list', 'tools/call'],
+      timestamp
     });
   }
   
