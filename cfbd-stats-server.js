@@ -10,7 +10,8 @@ import fetch from 'node-fetch';
 const app = express();
 app.use(express.json());
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
+const HOST = '0.0.0.0';
 const CFBD_API_KEY = process.env.CFBD_API_KEY;
 const MCP_API_KEY = process.env.MCP_API_KEY || 'your-secret-key';
 
@@ -853,8 +854,8 @@ app.get('/', (req, res) => {
   });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 CFBD Stats Server running on port ${PORT}`);
+app.listen(PORT, HOST, () => {
+  console.log(`🚀 CFBD Stats Server running on ${HOST}:${PORT}`);
   console.log(`✅ CFBD API Key: ${CFBD_API_KEY ? 'Configured' : '⚠️  MISSING'}`);
   console.log(`✅ MCP endpoint: /mcp`);
 });
