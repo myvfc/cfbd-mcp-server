@@ -155,8 +155,22 @@ app.post('/mcp', async (req, res) => {
   }
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`\n🚀 Server on 0.0.0.0:${PORT}`);
-  console.log(`CFBD Key: ${CFBD_API_KEY ? 'SET' : 'MISSING'}`);
-  console.log(`MCP Key: ${MCP_API_KEY ? 'SET' : 'NONE'}\n`);
+const server = app.listen(PORT, '0.0.0.0', () => {
+  console.log(`\n🚀 CFBD Stats MCP Server READY`);
+  console.log(`📍 Listening on http://0.0.0.0:${PORT}`);
+  console.log(`✅ CFBD API Key: ${CFBD_API_KEY ? 'Configured' : '❌ MISSING'}`);
+  console.log(`✅ MCP API Key: ${MCP_API_KEY ? 'Configured' : 'Not Required'}`);
+  console.log(`📋 Endpoints:`);
+  console.log(`   GET  /health - Health check`);
+  console.log(`   POST /mcp    - MCP protocol endpoint`);
+  console.log(`\n⏳ Waiting for requests...\n`);
+});
+
+// Keep the process alive
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received, closing server gracefully');
+  server.close(() => {
+    console.log('Server closed');
+    process.exit(0);
+  });
 });
