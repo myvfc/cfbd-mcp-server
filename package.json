@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "description": "CFBD Stats MCP Server for College Football Data",
-  "main": "cfbd-stats-server.js",
+  "main": "cfbd-stats-minimal.js",
   "scripts": {
-    "start": "node cfbd-stats-server.js"
+    "start": "node cfbd-stats-minimal.js"
   },
   "dependencies": {
     "express": "^4.18.2",
