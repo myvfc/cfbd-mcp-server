@@ -1,0 +1,17 @@
+{
+  "name": "cfbd-stats-mcp-server",
+  "version": "1.0.0",
+  "description": "CFBD Statistics MCP Server - Traditional stats only",
+  "type": "module",
+  "main": "cfbd-stats-server.js",
+  "scripts": {
+    "start": "node cfbd-stats-server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
