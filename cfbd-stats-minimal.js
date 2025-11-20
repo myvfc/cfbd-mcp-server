@@ -93,6 +93,25 @@ app.post('/mcp', async (req, res) => {
     const { method, params, id } = req.body;
     console.log('Method:', method);
     
+    // initialize - MCP handshake
+    if (method === 'initialize') {
+      console.log('✅ Handling initialize');
+      return res.json({
+        jsonrpc: '2.0',
+        result: {
+          protocolVersion: '2025-06-18',
+          capabilities: {
+            tools: {}
+          },
+          serverInfo: {
+            name: 'cfbd-stats-mcp-server',
+            version: '1.0.0'
+          }
+        },
+        id
+      });
+    }
+    
     // tools/list
     if (method === 'tools/list') {
       console.log('✅ Returning tools list');
