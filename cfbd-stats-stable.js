@@ -15,7 +15,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// Health check
+// Health check - respond FAST
 app.get('/health', (req, res) => {
   res.status(200).json({ 
     status: 'healthy',
@@ -24,9 +24,18 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Add a second health endpoint
+app.get('/ping', (req, res) => {
+  res.status(200).send('pong');
+});
+
 // Root
 app.get('/', (req, res) => {
-  res.json({ service: 'CFBD Stats MCP', status: 'running' });
+  res.status(200).json({ 
+    service: 'CFBD Stats MCP', 
+    status: 'running',
+    uptime: Math.floor(process.uptime())
+  });
 });
 
 // MCP endpoint - handle both GET and POST
@@ -252,7 +261,12 @@ const shutdown = () => {
 process.on('SIGTERM', shutdown);
 process.on('SIGINT', shutdown);
 
-// Keep alive ping
+// Keep alive ping (log every 60s)
 setInterval(() => {
   console.log(`💓 Alive: ${Math.floor(process.uptime())}s`);
 }, 60000);
+
+// Self-ping every 30s to keep Railway happy
+setInterval(() => {
+  fetch(`http://localhost:${PORT}/ping`).catch(() => {});
+}, 30000);
