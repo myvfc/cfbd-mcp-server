@@ -1,15 +1,15 @@
 {
   "name": "cfbd-stats-mcp-server",
   "version": "1.0.0",
-  "description": "CFBD Statistics MCP Server - Traditional stats only",
   "type": "module",
+  "description": "CFBD Stats MCP Server for College Football Data",
   "main": "cfbd-stats-server.js",
   "scripts": {
     "start": "node cfbd-stats-server.js"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "node-fetch": "^3.3.2"
+    "cors": "^2.8.5"
   },
   "engines": {
     "node": ">=18.0.0"
